@@ -62,11 +62,11 @@ const Wishes = () => {
 
         <div className="grid md:grid-cols-2 gap-12">
           {/* Wish Form */}
-          <div className="love-letter">
+          <div className="modern-card">
             <div className="flex items-center justify-center space-x-2 mb-6">
-              <Heart className="h-6 w-6 text-primary" />
+              <Heart className="h-6 w-6 text-primary animate-pulse" />
               <h3 className="text-2xl font-bold text-primary">Leave a Wish</h3>
-              <Heart className="h-6 w-6 text-primary" />
+              <Heart className="h-6 w-6 text-primary animate-pulse" />
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -116,7 +116,7 @@ const Wishes = () => {
 
             <div className="space-y-4 max-h-96 overflow-y-auto">
               {wishes.map((wish) => (
-                <div key={wish.id} className="vintage-frame">
+                <div key={wish.id} className="modern-card">
                   <div className="flex items-start justify-between mb-3">
                     <h4 className="font-semibold text-foreground">{wish.name}</h4>
                     <span className="text-xs text-muted-foreground">{wish.date}</span>
@@ -125,7 +125,7 @@ const Wishes = () => {
                     "{wish.message}"
                   </p>
                   <div className="flex justify-end mt-3">
-                    <Heart className="h-4 w-4 text-primary" />
+                    <Heart className="h-4 w-4 text-primary animate-pulse" />
                   </div>
                 </div>
               ))}

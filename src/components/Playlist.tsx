@@ -41,12 +41,13 @@ const Playlist = () => {
           <div className="ornament mt-4">❦</div>
         </div>
 
-        <div className="vintage-frame">
+        <div className="modern-card">
           {/* Current Playing */}
           <div className="text-center mb-8">
-            <div className="w-48 h-48 mx-auto mb-6 vintage-photo">
-              <div className="w-full h-full bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-                <Music className="h-16 w-16 text-primary-foreground" />
+            <div className="w-56 h-56 mx-auto mb-6 vintage-photo">
+              <div className="w-full h-full bg-gradient-to-br from-primary via-secondary to-accent rounded-2xl flex items-center justify-center relative overflow-hidden">
+                <Music className="h-20 w-20 text-primary-foreground z-10" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent"></div>
               </div>
             </div>
 

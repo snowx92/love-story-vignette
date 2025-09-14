@@ -56,11 +56,11 @@ const Memories = () => {
         </div>
 
         {/* Upload Section */}
-        <div className="love-letter text-center">
+        <div className="modern-card text-center mb-16">
           <div className="flex items-center justify-center space-x-2 mb-6">
-            <Heart className="h-6 w-6 text-primary" />
+            <Heart className="h-6 w-6 text-primary animate-pulse" />
             <h3 className="text-2xl font-bold text-primary">Share Your Memories</h3>
-            <Heart className="h-6 w-6 text-primary" />
+            <Heart className="h-6 w-6 text-primary animate-pulse" />
           </div>
           
           <p className="text-muted-foreground mb-8">
