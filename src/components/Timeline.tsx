@@ -24,7 +24,7 @@ const Timeline = () => {
       location: "Egypt"
     },
     {
-      date: "28-09-2025",
+      date: "12-09-2025",
       title: "Family Meeting",
       description: "When our families met and blessed our beautiful union",
       icon: Users,
