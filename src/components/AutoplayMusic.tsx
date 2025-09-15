@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { Volume2, VolumeX, Music, Play, Pause } from 'lucide-react';
+import { Volume2, VolumeX, Music, Play, Pause, Heart } from 'lucide-react';
 
 const AutoplayMusic = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -11,16 +11,15 @@ const AutoplayMusic = () => {
   const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
-    // Simplified audio loading - just try the basic path and handle errors gracefully
+    // Simplified audio loading that works on all devices including mobile
     const audio = new Audio();
     
     // Set up error handling first
     audio.addEventListener('error', (e) => {
-      console.log('Audio file not available - continuing without music');
+      console.log('Audio file not available - will show continue option');
       setLoadError(true);
       setAudioReady(false);
-      setShowPlayPrompt(false); // Don't show prompt if audio fails
-      setHasInteracted(true); // Skip audio interaction
+      // Keep showing prompt so user can try or continue
     });
 
     audio.addEventListener('canplaythrough', () => {
@@ -52,13 +51,9 @@ const AutoplayMusic = () => {
     
     audioRef.current = audio;
 
-    // For mobile devices, always skip audio and go straight to content
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    if (isMobile) {
-      setShowPlayPrompt(false);
-      setHasInteracted(true);
-      setLoadError(true); // Treat as no audio on mobile
-    }
+    // Don't try autoplay on any device - always require user interaction
+    // This is especially important for mobile browsers
+    setShowPlayPrompt(true);
 
     return () => {
       if (audio) {
@@ -75,29 +70,34 @@ const AutoplayMusic = () => {
   }, []);
 
   const startMusicManually = async () => {
-    if (audioRef.current && !loadError) {
+    if (loadError) {
+      // If audio failed to load, just continue without music
+      setShowPlayPrompt(false);
+      setHasInteracted(true);
+      return;
+    }
+
+    if (audioRef.current) {
       try {
+        // For mobile and production issues, try to reload the audio first
+        if (!audioReady) {
+          audioRef.current.load();
+          // Wait a bit for it to load
+          await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+
         audioRef.current.currentTime = 0;
         await audioRef.current.play();
         setHasInteracted(true);
         setShowPlayPrompt(false);
       } catch (error) {
-        console.log('Could not start music:', error);
-        setLoadError(true);
+        console.log('Could not start music, but continuing:', error);
+        // Even if music fails, let user continue
         setShowPlayPrompt(false);
         setHasInteracted(true);
       }
-    } else {
-      // No audio available, just continue
-      setShowPlayPrompt(false);
-      setHasInteracted(true);
     }
   };
-
-  // If there's a load error, don't show the prompt at all - just skip audio
-  if (loadError) {
-    return null; // Don't render anything if audio failed
-  }
 
   const togglePlayPause = async () => {
     if (audioRef.current) {
@@ -172,7 +172,7 @@ const AutoplayMusic = () => {
     );
   }
 
-  // Don't render floating controls if audio failed to load
+  // Only show floating controls if music is working
   if (loadError) {
     return null;
   }
