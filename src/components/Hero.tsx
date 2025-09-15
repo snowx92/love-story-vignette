@@ -139,13 +139,13 @@ const Hero = () => {
                   </div>
                   <div className="text-center">
                     <p className="text-sm font-bold text-amber-900 mb-1" style={{ fontFamily: 'Dancing Script, cursive' }}>
-                      The Grand Ballroom
+                      Sarah's Home
                     </p>
                     <p className="text-xs text-amber-700 mb-2" style={{ fontFamily: 'Dancing Script, cursive' }}>
-                      123 Romance Avenue, Cairo
+                      Obour City, Cairo
                     </p>
                     <a 
-                      href="https://maps.google.com/?q=The+Grand+Ballroom+Cairo" 
+                      href="https://maps.app.goo.gl/tpe3o7Zmd28cD9ev7" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="inline-flex items-center px-2 py-1 bg-amber-600 hover:bg-amber-700 text-white rounded-full text-xs transition-all duration-300 hover:scale-105 shadow-lg"
@@ -323,13 +323,13 @@ const Hero = () => {
                   </div>
                   <div className="text-center">
                     <p className="text-lg md:text-xl lg:text-2xl font-bold text-amber-900 mb-2" style={{ fontFamily: 'Dancing Script, cursive' }}>
-                      The Grand Ballroom
+                      Sarah's Home
                     </p>
                     <p className="text-sm md:text-base text-amber-700 mb-3" style={{ fontFamily: 'Dancing Script, cursive' }}>
-                      123 Romance Avenue, Cairo
+                      Obour City, Cairo
                     </p>
                     <a 
-                      href="https://maps.google.com/?q=The+Grand+Ballroom+Cairo" 
+                      href="https://maps.app.goo.gl/tpe3o7Zmd28cD9ev7" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="inline-flex items-center px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-full text-sm transition-all duration-300 hover:scale-105 shadow-lg"
