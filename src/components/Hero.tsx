@@ -122,6 +122,9 @@ const Hero = () => {
                     <p className="text-lg font-bold text-amber-900 mb-1" style={{ fontFamily: 'Dancing Script, cursive' }}>
                       October 3rd, 2025
                     </p>
+                    <p className="text-sm font-bold text-amber-800 mb-1" style={{ fontFamily: 'Dancing Script, cursive' }}>
+                      7:00 PM
+                    </p>
                     <p className="text-xs text-amber-700" style={{ fontFamily: 'Dancing Script, cursive' }}>
                       A day to remember forever
                     </p>
@@ -305,6 +308,9 @@ const Hero = () => {
                     </p>
                     <p className="text-xl md:text-2xl lg:text-3xl font-bold text-amber-900 mb-2" style={{ fontFamily: 'Dancing Script, cursive' }}>
                       2025
+                    </p>
+                    <p className="text-lg md:text-xl lg:text-2xl font-bold text-amber-800 mb-2" style={{ fontFamily: 'Dancing Script, cursive' }}>
+                      7:00 PM
                     </p>
                     <p className="text-base md:text-lg text-amber-700" style={{ fontFamily: 'Dancing Script, cursive' }}>
                       A day to remember forever
