@@ -11,9 +11,8 @@ const AutoplayMusic = () => {
   const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
-    // Create audio element with public path (works better in production)
-    // You can replace this with your actual song URL or file path
-    const audio = new Audio('/song.mp3'); // Will look for song.mp3 in public folder
+    // Create audio element - use base URL + path for proper production deployment
+    const audio = new Audio(`${window.location.origin}/song.mp3`);
     audio.loop = true;
     audio.volume = 0.3; // Set to 30% volume for background music
     audio.preload = 'metadata'; // Changed from 'auto' for better mobile performance
