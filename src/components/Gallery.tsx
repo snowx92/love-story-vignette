@@ -28,26 +28,16 @@ const Gallery = () => {
     setSelectedPhoto(null);
   };
 
-  // Sample placeholder photos for demonstration
-  const samplePhotos = [
-    { id: 1, caption: "The proposal moment" },
-    { id: 2, caption: "Ring exchange" },
-    { id: 3, caption: "Family celebration" },
-    { id: 4, caption: "Happy tears" },
-    { id: 5, caption: "First dance" },
-    { id: 6, caption: "Group photo" },
-  ];
-
   return (
     <section id="gallery" className="py-20 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <div className="ornament mb-4">❦</div>
-          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4" style={{ fontFamily: 'Dancing Script, cursive' }}>
             Engagement Gallery
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Share and view photos from our special engagement celebration
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto" style={{ fontFamily: 'Dancing Script, cursive' }}>
+            No photos uploaded yet from our engagement celebration. Be the first to share your beautiful memories with us!
           </p>
           <div className="ornament mt-4">❦</div>
         </div>
@@ -60,8 +50,8 @@ const Gallery = () => {
             <Camera className="h-6 w-6 text-primary animate-pulse" />
           </div>
           
-          <p className="text-muted-foreground mb-8">
-            Were you at our engagement? Upload your photos to share with everyone!
+          <p className="text-muted-foreground mb-8" style={{ fontFamily: 'Dancing Script, cursive' }}>
+            Were you at our engagement? We'd love to see your photos! Upload them to share the beautiful moments with everyone.
           </p>
 
           <div className="relative inline-block">
@@ -83,21 +73,7 @@ const Gallery = () => {
         <div className="mb-12">
           <div className="flex items-center space-x-2 mb-8">
             <Grid className="h-6 w-6 text-primary" />
-            <h3 className="text-2xl font-bold text-primary">Photo Gallery</h3>
-          </div>
-
-          {/* Sample Photos Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
-            {samplePhotos.map((photo) => (
-              <div key={photo.id} className="vintage-photo group cursor-pointer">
-                <div className="aspect-square bg-muted rounded-lg flex items-center justify-center mb-2 hover:bg-muted/80 transition-colors">
-                  <Camera className="h-8 w-8 text-muted-foreground" />
-                </div>
-                <p className="text-sm text-center text-muted-foreground">
-                  {photo.caption}
-                </p>
-              </div>
-            ))}
+            <h3 className="text-2xl font-bold text-primary" style={{ fontFamily: 'Dancing Script, cursive' }}>Photo Gallery</h3>
           </div>
 
           {/* Uploaded Photos Grid */}
@@ -128,8 +104,11 @@ const Gallery = () => {
           {engagementPhotos.length === 0 && (
             <div className="text-center py-12 bg-muted/10 rounded-lg">
               <Camera className="h-16 w-16 mx-auto mb-4 text-muted-foreground opacity-50" />
-              <p className="text-muted-foreground text-lg">
-                No photos uploaded yet. Be the first to share!
+              <p className="text-muted-foreground text-lg mb-2" style={{ fontFamily: 'Dancing Script, cursive' }}>
+                No engagement photos shared yet
+              </p>
+              <p className="text-muted-foreground text-sm" style={{ fontFamily: 'Dancing Script, cursive' }}>
+                Be the first to upload and share our beautiful engagement memories!
               </p>
             </div>
           )}

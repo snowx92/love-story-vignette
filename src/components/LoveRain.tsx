@@ -1,9 +1,19 @@
 import { useEffect, useState } from 'react';
 
+// Define emojis outside component to avoid dependency issues
+const loveEmojis = [
+  // 3 types of hearts
+  '❤️', '💕', '💖',
+  // Flowers
+  '🌹', '🌸', '🌺', '🌻', '🌷', '🌼', '💐', '🌿', '🌱',
+  // Bakery items
+  '🎂', '🧁', '🍰', '🍪', '🥧', '🍩', '🥖', '🥐', '🍞',
+  // Rings
+  '💍', '💎', '✨'
+];
+
 const LoveRain = () => {
   const [raindrops, setRaindrops] = useState<Array<{ id: number; left: number; emoji: string; delay: number }>>([]);
-
-  const loveEmojis = ['💕', '💖', '💗', '💝', '💘', '💞', '💓', '❤️', '💜', '🤍', '💛', '🧡', '❣️', '💋'];
 
   useEffect(() => {
     const createRaindrop = () => {

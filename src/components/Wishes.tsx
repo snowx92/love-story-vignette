@@ -9,26 +9,7 @@ interface Wish {
 }
 
 const Wishes = () => {
-  const [wishes, setWishes] = useState<Wish[]>([
-    {
-      id: 1,
-      name: "Ahmad & Fatima",
-      message: "Wishing you both a lifetime of love and happiness! You two are perfect together.",
-      date: "2 days ago"
-    },
-    {
-      id: 2,
-      name: "Sarah's Family",
-      message: "So excited to welcome Mohamed to our family! Can't wait for the wedding!",
-      date: "1 week ago"
-    },
-    {
-      id: 3,
-      name: "College Friends",
-      message: "From our university days to now - watching your love story unfold has been beautiful!",
-      date: "2 weeks ago"
-    }
-  ]);
+  const [wishes, setWishes] = useState<Wish[]>([]);
 
   const [newWish, setNewWish] = useState({ name: '', message: '' });
 
@@ -51,11 +32,11 @@ const Wishes = () => {
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
           <div className="ornament mb-4">❦</div>
-          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4" style={{ fontFamily: 'Dancing Script, cursive' }}>
             Your Wishes for Us
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Share your love, blessings, and beautiful wishes for our journey ahead
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto" style={{ fontFamily: 'Dancing Script, cursive' }}>
+            Share your love, blessings, and beautiful wishes for our journey ahead. Your words mean the world to us!
           </p>
           <div className="ornament mt-4">❦</div>
         </div>
@@ -65,7 +46,7 @@ const Wishes = () => {
           <div className="modern-card">
             <div className="flex items-center justify-center space-x-2 mb-6">
               <Heart className="h-6 w-6 text-primary animate-pulse" />
-              <h3 className="text-2xl font-bold text-primary">Leave a Wish</h3>
+              <h3 className="text-2xl font-bold text-primary" style={{ fontFamily: 'Dancing Script, cursive' }}>Leave a Wish</h3>
               <Heart className="h-6 w-6 text-primary animate-pulse" />
             </div>
 
@@ -92,7 +73,7 @@ const Wishes = () => {
                   value={newWish.message}
                   onChange={(e) => setNewWish({ ...newWish, message: e.target.value })}
                   className="vintage-input min-h-[120px] resize-none"
-                  placeholder="Share your heartfelt wishes for Mohamed and Sarah..."
+                  placeholder="Share your heartfelt wishes for Mohamed and Sarah... Your blessing means everything to us!"
                   required
                 />
               </div>
@@ -111,7 +92,7 @@ const Wishes = () => {
           <div className="space-y-6">
             <div className="flex items-center space-x-2 mb-6">
               <MessageCircle className="h-6 w-6 text-primary" />
-              <h3 className="text-2xl font-bold text-primary">Wishes Received</h3>
+              <h3 className="text-2xl font-bold text-primary" style={{ fontFamily: 'Dancing Script, cursive' }}>Wishes Received</h3>
             </div>
 
             <div className="space-y-4 max-h-96 overflow-y-auto">
@@ -134,7 +115,12 @@ const Wishes = () => {
             {wishes.length === 0 && (
               <div className="text-center py-12 text-muted-foreground">
                 <MessageCircle className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                <p>No wishes yet. Be the first to share your blessing!</p>
+                <p style={{ fontFamily: 'Dancing Script, cursive' }} className="text-lg mb-2">
+                  No wishes yet received
+                </p>
+                <p style={{ fontFamily: 'Dancing Script, cursive' }} className="text-sm">
+                  Be the first to share your beautiful blessing for our journey together!
+                </p>
               </div>
             )}
           </div>

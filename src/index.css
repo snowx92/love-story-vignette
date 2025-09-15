@@ -181,9 +181,16 @@
 
   .floating-photo {
     position: absolute;
-    z-index: 1;
-    pointer-events: none;
-    animation: float-enhanced 8s ease-in-out infinite;
+    z-index: 5;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  .floating-photo-container {
+    position: absolute;
+    z-index: 5;
+    pointer-events: auto;
+    cursor: pointer;
   }
 
   .floating-photo:nth-child(2n) {
@@ -332,4 +339,35 @@
     box-shadow: var(--shadow-floating);
     border-color: hsl(var(--primary) / 0.4);
   }
+
+  /* Custom Scrollbar Styles for Timeline */
+  .timeline-scroll {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+  }
+
+  .timeline-scroll::-webkit-scrollbar {
+    display: none; /* WebKit */
+  }
+
+  /* Alternative: Styled scrollbar (uncomment to use instead of hidden) */
+  /*
+  .timeline-scroll::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .timeline-scroll::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+    border-radius: 2px;
+  }
+
+  .timeline-scroll::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary));
+    border-radius: 2px;
+  }
+
+  .timeline-scroll::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--accent));
+  }
+  */
 }
