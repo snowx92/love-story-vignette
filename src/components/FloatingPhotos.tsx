@@ -18,24 +18,28 @@ const FloatingPhotos = () => {
   });
 
   const allPhotos = useMemo(() => [photo1, photo2, photo3, photo4, photo5, photo6, photo7, photo8, photo9, photo10], []);
-  
-    const loveMessages = [
-      "Every moment with you is a beautiful memory 💕",
-      "You are my sunshine on a cloudy day ☀️",
-      "In your eyes, I found my home 🏠",
-      "Forever grateful for your love 🙏",
-      "You make my heart skip a beat 💓",
-      "Together we create magic ✨",
-      "Your smile lights up my world 😊",
-      "Love grows stronger with each passing day 🌱",
-      "You are my greatest adventure 🗺️",
-      "In your arms, I found my peace 🕊️",
-      "Every love story is beautiful, but ours is my favorite 📖",
-      "You are the missing piece to my puzzle 🧩",
-      "With you, every day feels like a fairytale 👑",
-      "Your love is the melody of my heart 🎵",
-      "Together we are unstoppable 💪"
-    ];
+const loveMessages = [
+  // Arabic Romantic Poetry
+  "وفي عينيكِ رأيتُ كلَّ الأوطان 🌹",
+  "أنتِ البداية التي لا تنتهي، والدهشة التي لا تزول 💕",
+  "كلما ابتسمتِ، امتلأ قلبي بالطمأنينة ✨",
+  "أحبك حبًّا لو وزع على هذا العالم لكفاه 💫",
+  "يا نبض قلبي، يا أغنيتي التي لا تنطفئ 🎶",
+  "معكِ، يصبح العمر قصيدة بلا نهاية 📖",
+  "أنتِ سكوني حين يضجّ العالم 🌌",
+  "وجودكِ حولي، يجعل الليل قمراً دائمًا 🌙",
+  "أحبك فوق الحب، كما تحب الروح سرَّ الخلود 🕊️",
+
+  // English Lyrics (Cigarettes After Sex style)
+  "Your touch feels like a dream I never want to wake up from 🌒",
+  "In the silence, your voice is all I hear ✨",
+  "Every night, I fall in love with you again under the stars 🌌",
+  "Your kiss tastes like eternity, soft and endless 💋",
+  "I carry your presence in every shadow and every light 🌙",
+  "Being with you feels like slow dancing in a dream 🖤",
+  "You’re the secret melody my heart plays on repeat 🎶",
+  "The world fades, but you remain — infinite and true ♾️"
+];
 
   const generateAllPhotos = useCallback(() => {
     // Generate positions that work on both mobile and desktop
