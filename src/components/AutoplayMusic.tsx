@@ -11,72 +11,114 @@ const AutoplayMusic = () => {
   const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
-    // Create audio element - use base URL + path for proper production deployment
-    const audio = new Audio(`${window.location.origin}/song.mp3`);
-    audio.loop = true;
-    audio.volume = 0.3; // Set to 30% volume for background music
-    audio.preload = 'metadata'; // Changed from 'auto' for better mobile performance
-    
-    // Add event listeners to track audio state
-    audio.addEventListener('canplaythrough', () => {
-      setAudioReady(true);
-      setLoadError(false);
-    });
-
-    audio.addEventListener('error', (e) => {
-      console.log('Audio load error:', e);
-      setLoadError(true);
-      setAudioReady(false);
-    });
-
-    audio.addEventListener('loadstart', () => {
-      setLoadError(false);
-    });
-    
-    audio.addEventListener('play', () => {
-      setIsPlaying(true);
-    });
-    
-    audio.addEventListener('pause', () => {
-      setIsPlaying(false);
-    });
-    
-    audio.addEventListener('ended', () => {
-      setIsPlaying(false);
-    });
-    
-    audioRef.current = audio;
-
-    // Function to start playing
-    const startMusic = async () => {
-      try {
-        if (audio && !hasInteracted && audioReady) {
-          // Add a small delay for mobile browsers
-          await new Promise(resolve => setTimeout(resolve, 100));
-          await audio.play();
-          setHasInteracted(true);
-          setShowPlayPrompt(false);
+    // Create audio element with multiple fallback strategies
+    const initAudio = async () => {
+      let audio;
+      let audioUrl;
+      
+      // Try different URL strategies for different environments
+      const urlStrategies = [
+        `${window.location.origin}/song.mp3`,
+        '/song.mp3',
+        './song.mp3'
+      ];
+      
+      for (const url of urlStrategies) {
+        try {
+          audio = new Audio();
+          audio.crossOrigin = 'anonymous'; // Help with CORS issues
+          audio.preload = 'metadata';
+          
+          // Test if the URL is accessible
+          const response = await fetch(url, { method: 'HEAD' });
+          if (response.ok) {
+            audioUrl = url;
+            break;
+          }
+        } catch (error) {
+          console.log(`Failed to access audio at ${url}:`, error);
+          continue;
         }
-      } catch (error) {
-        console.log('Autoplay prevented by browser - waiting for user interaction');
+      }
+      
+      if (!audioUrl) {
+        console.log('No audio file found at any URL');
+        setLoadError(true);
+        setAudioReady(false);
+        return;
+      }
+      
+      // Configure the audio element
+      audio.src = audioUrl;
+      audio.loop = true;
+      audio.volume = 0.3;
+      audio.preload = 'metadata';
+      
+      // Add event listeners to track audio state
+      audio.addEventListener('canplaythrough', () => {
+        setAudioReady(true);
+        setLoadError(false);
+      });
+
+      audio.addEventListener('error', (e) => {
+        console.log('Audio load error:', e);
+        setLoadError(true);
+        setAudioReady(false);
+      });
+
+      audio.addEventListener('loadstart', () => {
+        setLoadError(false);
+      });
+      
+      audio.addEventListener('play', () => {
+        setIsPlaying(true);
+      });
+      
+      audio.addEventListener('pause', () => {
+        setIsPlaying(false);
+      });
+      
+      audio.addEventListener('ended', () => {
+        setIsPlaying(false);
+      });
+      
+      audioRef.current = audio;
+
+      // Function to start playing
+      const startMusic = async () => {
+        try {
+          if (audio && !hasInteracted && audioReady) {
+            // Add a small delay for mobile browsers
+            await new Promise(resolve => setTimeout(resolve, 100));
+            await audio.play();
+            setHasInteracted(true);
+            setShowPlayPrompt(false);
+          }
+        } catch (error) {
+          console.log('Autoplay prevented by browser - waiting for user interaction');
+          setShowPlayPrompt(true);
+        }
+      };
+
+      // For mobile devices, don't try autoplay - always show the prompt
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      if (isMobile) {
         setShowPlayPrompt(true);
+      } else {
+        // Try to start music after audio is ready (only on desktop)
+        if (audioReady) {
+          const timer = setTimeout(startMusic, 1000);
+          return () => clearTimeout(timer);
+        }
       }
     };
 
-    // For mobile devices, don't try autoplay - always show the prompt
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    if (isMobile) {
-      setShowPlayPrompt(true);
-    } else {
-      // Try to start music after audio is ready (only on desktop)
-      if (audioReady) {
-        const timer = setTimeout(startMusic, 1000); // Increased delay
-        return () => clearTimeout(timer);
-      }
-    }
+    // Initialize audio
+    initAudio();
 
     return () => {
-      if (audio) {
+      if (audioRef.current) {
+        const audio = audioRef.current;
         audio.removeEventListener('canplaythrough', () => {});
         audio.removeEventListener('error', () => {});
         audio.removeEventListener('loadstart', () => {});
@@ -94,12 +136,20 @@ const AutoplayMusic = () => {
       try {
         // For mobile browsers, reload the audio if there was an error
         if (loadError || !audioReady) {
+          // Try to reload the audio with a simpler approach
           audioRef.current.load();
-          // Wait for audio to be ready
-          await new Promise((resolve) => {
+          
+          // Wait for audio to be ready with timeout
+          await new Promise((resolve, reject) => {
+            let attempts = 0;
+            const maxAttempts = 50; // 5 seconds max
+            
             const checkReady = () => {
+              attempts++;
               if (audioRef.current && audioRef.current.readyState >= 2) {
                 resolve(void 0);
+              } else if (attempts >= maxAttempts) {
+                reject(new Error('Audio failed to load after 5 seconds'));
               } else {
                 setTimeout(checkReady, 100);
               }
@@ -117,6 +167,9 @@ const AutoplayMusic = () => {
       } catch (error) {
         console.log('Could not start music:', error);
         setLoadError(true);
+        // Allow user to continue without music
+        setShowPlayPrompt(false);
+        setHasInteracted(true);
       }
     }
   };
@@ -162,16 +215,16 @@ const AutoplayMusic = () => {
               🎵 Play Our Love Song
             </h3>
             <p className="text-muted-foreground mb-4" style={{ fontFamily: 'Dancing Script, cursive' }}>
-              {loadError ? 'Audio file not found, but you can still enjoy the visual experience!' : 'Click to start the romantic background music'}
+              {loadError ? 'Audio file not available in production, but you can still enjoy our beautiful love story!' : 'Click to start the romantic background music'}
             </p>
             <button
-              onClick={loadError ? () => setShowPlayPrompt(false) : startMusicManually}
+              onClick={loadError ? () => {setShowPlayPrompt(false); setHasInteracted(true);} : startMusicManually}
               className="bg-primary text-white px-6 py-3 rounded-full flex items-center space-x-2 mx-auto hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               {loadError ? (
                 <>
                   <Music className="h-5 w-5" />
-                  <span style={{ fontFamily: 'Dancing Script, cursive' }}>Continue Without Music</span>
+                  <span style={{ fontFamily: 'Dancing Script, cursive' }}>Continue to Our Story</span>
                 </>
               ) : (
                 <>
@@ -182,7 +235,7 @@ const AutoplayMusic = () => {
             </button>
             {loadError && (
               <p className="text-amber-600 text-sm mt-2" style={{ fontFamily: 'Dancing Script, cursive' }}>
-                💡 Tip: Add a song.mp3 file to the public folder to enable music
+                � The love story continues even without music
               </p>
             )}
           </div>
