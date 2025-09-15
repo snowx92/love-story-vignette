@@ -17,21 +17,21 @@ const Timeline = () => {
       location: "Salalah, Oman"
     },
     {
-      date: generateRandomDate(2024, 11),
+      date: "28-11-2024",
       title: "Love Confession",
       description: "The day we both said 'I love you' and knew this was forever",
       icon: Heart,
       location: "Egypt"
     },
     {
-      date: generateRandomDate(2025, 9),
+      date: "28-09-2025",
       title: "Family Meeting",
       description: "When our families met and blessed our beautiful union",
       icon: Users,
       location: "Egypt"
     },
     {
-      date: generateRandomDate(2025, 10),
+      date: "03-10-2025",
       title: "Engagement Day",
       description: "The day we officially became engaged and started planning our future together",
       icon: Gem,

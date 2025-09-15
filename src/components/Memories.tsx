@@ -22,8 +22,8 @@ const Memories = () => {
   const sampleMemories = [
     { id: 1, caption: "Our first trip together", date: "2018" },
     { id: 2, caption: "Celebrating anniversaries", date: "2020" },
-    { id: 3, caption: "Family gatherings", date: "2022" },
-    { id: 4, caption: "Beautiful moments", date: "2024" },
+    { id: 3, caption: "Family gatherings", date: "2025" },
+    { id: 4, caption: "Beautiful moments", date: "2025" },
   ];
 
   return (
